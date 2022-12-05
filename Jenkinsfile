@@ -55,7 +55,7 @@ pipeline{
                         [
                             artifactId: 'real-time', 
                             classifier: '', 
-                            file: 'target/real-time-1.0-SNAPSHOT.jar', 
+                            file: "target/"${PomVersion.version}".jar", 
                             type: 'jar'
                             ]
                     ], 
