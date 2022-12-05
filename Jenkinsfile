@@ -45,5 +45,27 @@ pipeline{
                 }
             }
         }
+        stage("Upload jar file to nexus"){
+            steps{
+                script{
+                    nexusArtifactUploader artifacts: 
+                    [
+                        [
+                            artifactId: 'real-time', 
+                            classifier: '', 
+                            file: 'target/real-time-1.0-SNAPSHOT.jar', 
+                            type: 'jar'
+                            ]
+                    ], 
+                    credentialsId: 'nexus', 
+                    groupId: 'com.example', 
+                    nexusUrl: '44.203.231.49:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: 'demoapp-snapshot', 
+                    version: '1.0-SNAPSHOT'
+                }
+            }
+        }
     }
 }
