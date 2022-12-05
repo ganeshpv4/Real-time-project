@@ -66,7 +66,7 @@ pipeline{
                     nexusUrl: '44.203.231.49:8081', 
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
-                    repository: 'demoapp-snapshot', 
+                    repository: NexusRepo, 
                     version: "${PomVersion.version}"
                 }
             }
