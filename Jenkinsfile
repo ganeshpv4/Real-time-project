@@ -7,22 +7,21 @@ pipeline{
         stage("Git checkout"){
 
             steps{
-                git branch: 'main', 
-                credentialsId: 'git', 
-                url: 'https://github.com/ganeshpv7/Real-time-project.git'
+                checkout([$class: 'GitSCM', 
+                        branches: [[name: '*/main']],  
+                        userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/ganeshpv7/Real-time-project.git']]])
             }
         }
-
         stage("UNIT Testing"){
             steps{
                 sh 'mvn test'
             }
         }
-        stage("Integration test"){
-            steps{
-                sh 'mvn verify -DskipUnitTest'
-            }
-        }
+      // \\ stage("Integration test"){
+      //   \\   steps{
+    //       \\     sh 'mvn verify -DskipUnitTest'
+  //         }
+   //     }
         stage("Maven build"){
             steps{
                 sh 'mvn clean install'
@@ -57,13 +56,13 @@ pipeline{
                         [
                             artifactId: 'real-time', 
                             classifier: '', 
-                            file: "target/real-time-${PomVersion.version}.jar", 
+                            file: "target/${PomVersion.finalName}.jar", 
                             type: 'jar'
                             ]
                     ], 
                     credentialsId: 'nexus', 
                     groupId: 'com.example', 
-                    nexusUrl: '44.203.231.49:8081', 
+                    nexusUrl: '34.205.15.205:8081', 
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
                     repository: NexusRepo, 
