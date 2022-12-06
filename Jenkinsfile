@@ -44,7 +44,7 @@ pipeline{
                 }
             }
         }
-        stage("Upload jar file to nexus"){
+        stage("Upload war file to nexus"){
             steps{
                 script{
 
@@ -54,10 +54,10 @@ pipeline{
                     nexusArtifactUploader artifacts: 
                     [
                         [
-                            artifactId: 'real-time', 
+                            artifactId: 'CubeGeneratorWeb', 
                             classifier: '', 
-                            file: "target/${PomVersion.finalName}.jar", 
-                            type: 'jar'
+                            file: "target/${PomVersion.finalName}.war", 
+                            type: 'war'
                             ]
                     ], 
                     credentialsId: 'nexus', 
